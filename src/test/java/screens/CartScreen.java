@@ -19,13 +19,14 @@ public class CartScreen {
 
     public CartScreen(WebDriver driver, String bookTitle) {
         this.driver = driver;
-        this.wait = new WebDriverWait(this.driver, Duration.ofMillis(10000));
+        this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
         this.url = "https://www.periplus.com/checkout/cart";
         this.bookTitle = bookTitle;
         this.bookXPath = "//p[contains(@class, 'product-name')]//a[contains(normalize-space(text()), '%s')]";
         PageFactory.initElements(driver, this);
     }
 
+    // Shopping cart screen elements
     @FindBy(xpath = "//button[contains(@name, 'plus[53553084]')]")
     WebElement plusQtyButton;
     @FindBy(xpath = "//button[contains(@name, 'minus[53553084]')]")
@@ -49,6 +50,7 @@ public class CartScreen {
     @FindBy(className = "preloader")
     WebElement preloader;
 
+    // Check if UI elements are visible on the page
     public boolean isDisplayed(WebElement element) {
         try {
             return wait.until(ExpectedConditions.visibilityOf(element)).isDisplayed();
@@ -91,6 +93,7 @@ public class CartScreen {
         return isDisplayed(emptyCartMessage);
     }
 
+    // Check if UI elements are clickable on the page
     public boolean isClickable(WebElement element) {
         boolean isDisplayed = wait.until(ExpectedConditions.elementToBeClickable(element)).isDisplayed();
         boolean isEnabled = wait.until(ExpectedConditions.elementToBeClickable(element)).isEnabled();
@@ -118,10 +121,12 @@ public class CartScreen {
         return isClickable(checkoutButton);
     }
 
+    // Verify quantity number
     public boolean verifyQuantity(String expectedValue) {
         return wait.until(ExpectedConditions.attributeToBe(quantity, "value", expectedValue));
     }
 
+    // Check UI elements' clicking behavior
     public void clickPlusQtyBtn() {
         wait.until(ExpectedConditions.invisibilityOf(preloader));
         plusQtyButton.click();

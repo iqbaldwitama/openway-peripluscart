@@ -18,12 +18,13 @@ public class BookScreen {
 
     public BookScreen(WebDriver driver, String bookTitle) {
         this.driver = driver;
-        this.wait = new WebDriverWait(this.driver, Duration.ofMillis(10000));
+        this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
         this.bookTitle = bookTitle;
         this.bookXPath = "//h2[contains(normalize-space(text()), '%s')]";
         PageFactory.initElements(driver, this);
     }
 
+    // Book screen elements
     @FindBy(xpath = "//button[@name='plus']")
     WebElement plusButton;
     @FindBy(xpath = "//button[@name='minus']")
@@ -39,6 +40,7 @@ public class BookScreen {
     @FindBy(className = "preloader")
     WebElement preloader;
 
+    // Check if UI elements are visible on the page
     public boolean isDisplayed(WebElement element) {
         return wait.until(ExpectedConditions.visibilityOf(element)).isDisplayed();
     }
@@ -62,6 +64,7 @@ public class BookScreen {
         return isDisplayed(notificationModal);
     }
 
+    // Check if UI elements are clickable on the page
     public boolean isClickable(WebElement element) {
         boolean isDisplayed = wait.until(ExpectedConditions.elementToBeClickable(element)).isDisplayed();
         boolean isEnabled = wait.until(ExpectedConditions.elementToBeClickable(element)).isEnabled();
@@ -77,6 +80,7 @@ public class BookScreen {
         return isClickable(addToCartButton);
     }
 
+    // Check UI elements' clicking behavior
     public void clickAddToCart() {
         wait.until(ExpectedConditions.invisibilityOf(preloader));
         addToCartButton.click();

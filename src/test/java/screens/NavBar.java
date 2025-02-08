@@ -16,11 +16,11 @@ public class NavBar {
 
     public NavBar(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(this.driver, Duration.ofMillis(10000));
+        this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
     }
 
-    // Navbar Elements
+    // Navbar elements
     @FindBy(id = "filter_name")
     WebElement searchBar;
     @FindBy(id = "show-your-cart")
@@ -30,6 +30,7 @@ public class NavBar {
     @FindBy(className = "preloader")
     WebElement preloader;
 
+    // Check if UI elements are visible on the page
     public boolean isDisplayed(WebElement element) {
         return wait.until(ExpectedConditions.visibilityOf(element)).isDisplayed();
     }
@@ -43,6 +44,7 @@ public class NavBar {
         return isDisplayed(signInButton);
     }
 
+    // Check if UI elements are clickable on the page
     public boolean isClickable(WebElement element) {
         boolean isDisplayed = wait.until(ExpectedConditions.elementToBeClickable(element)).isDisplayed();
         boolean isEnabled = wait.until(ExpectedConditions.elementToBeClickable(element)).isEnabled();
@@ -55,6 +57,7 @@ public class NavBar {
         return isClickable(signInButton);
     }
 
+    // Check UI elements' clicking behavior
     public void clickSignIn() {
         wait.until(ExpectedConditions.invisibilityOf(preloader));
         signInButton.click();
@@ -63,16 +66,17 @@ public class NavBar {
         wait.until(ExpectedConditions.invisibilityOf(preloader));
         cartButton.click();
     }
+    public void clickSearch() {
+        searchBar.sendKeys(Keys.ENTER);
+    }
 
+    // Enter search input value
     public void enterSearchBarInput(String input) {
         wait.until(ExpectedConditions.elementToBeClickable(searchBar)).sendKeys(input);
     }
 
+    // Verify search input value
     public boolean verifySearchInputValue(String expectedValue) {
         return wait.until(ExpectedConditions.attributeToBe(searchBar, "value", expectedValue));
-    }
-
-    public void clickSearch() {
-        searchBar.sendKeys(Keys.ENTER);
     }
 }

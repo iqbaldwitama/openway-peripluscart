@@ -16,11 +16,12 @@ public class SignInScreen {
 
     public SignInScreen(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(this.driver, Duration.ofMillis(10000));
+        this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
         this.url = "https://www.periplus.com/account/Login";
         PageFactory.initElements(driver, this);
     }
 
+    // Sign-in screen elements
     @FindBy(className = "signin_main")
     WebElement signInTitle;
     @FindBy(xpath = "//input[@name='email']")
@@ -30,6 +31,7 @@ public class SignInScreen {
     @FindBy(id = "button-login")
     WebElement loginButton;
 
+    // Check if UI elements are visible on the page
     public boolean isDisplayed(WebElement element) {
         return wait.until(ExpectedConditions.visibilityOf(element)).isDisplayed();
     }
@@ -46,6 +48,7 @@ public class SignInScreen {
         return isDisplayed(loginButton);
     }
 
+    // Check if UI elements are clickable on the page
     public boolean isClickable(WebElement element) {
         boolean isDisplayed = wait.until(ExpectedConditions.elementToBeClickable(element)).isDisplayed();
         boolean isEnabled = wait.until(ExpectedConditions.elementToBeClickable(element)).isEnabled();
@@ -55,6 +58,7 @@ public class SignInScreen {
         return isClickable(loginButton);
     }
 
+    // Enter input values
     public void enterInput(WebElement element, String input) {
         wait.until(ExpectedConditions.elementToBeClickable(element)).sendKeys(input);
     }
@@ -65,6 +69,7 @@ public class SignInScreen {
         enterInput(passwordInput, password);
     }
 
+    // Verify input values
     public boolean verifyInputValue(WebElement element, String expectedValue) {
         return wait.until(ExpectedConditions.attributeToBe(element, "value", expectedValue));
     }
@@ -75,6 +80,7 @@ public class SignInScreen {
         return verifyInputValue(passwordInput, password);
     }
 
+    // Check UI element's clicking behavior
     public void clickLoginButton() {
         wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
     }

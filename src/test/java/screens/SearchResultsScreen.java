@@ -18,7 +18,7 @@ public class SearchResultsScreen {
 
     public SearchResultsScreen(WebDriver driver, String bookTitle) {
         this.driver = driver;
-        this.wait = new WebDriverWait(this.driver, Duration.ofMillis(10000));
+        this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
         this.bookTitle = bookTitle;
         this.bookXPath = "//h3/a[contains(normalize-space(text()), '%s')]";
         PageFactory.initElements(driver, this);
@@ -27,11 +27,13 @@ public class SearchResultsScreen {
     @FindBy(className = "preloader")
     WebElement preloader;
 
+    // Check if UI element is visible on the page
     public boolean bookIsDisplayed() {
         String xpath = String.format(bookXPath, bookTitle);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath))).isDisplayed();
     }
 
+    // Check if UI element is clickable on the page
     public boolean bookIsClickable() {
         String xpath = String.format(bookXPath, bookTitle);
         boolean isDisplayed = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).isDisplayed();
@@ -39,6 +41,7 @@ public class SearchResultsScreen {
         return isDisplayed && isEnabled;
     }
 
+    // Check UI element's clicking behavior
     public void clickBook() {
         String xpath = String.format(bookXPath, bookTitle);
 
