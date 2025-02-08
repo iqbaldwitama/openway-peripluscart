@@ -79,7 +79,7 @@ public class BookScreen {
 
     public void clickAddToCart() {
         wait.until(ExpectedConditions.invisibilityOf(preloader));
-        wait.until(ExpectedConditions.elementToBeClickable(addToCartButton)).click();
+        addToCartButton.click();
     }
     public void clickCloseModal() {
         closeModalButton.click();

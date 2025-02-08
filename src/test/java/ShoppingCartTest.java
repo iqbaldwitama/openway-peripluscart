@@ -243,4 +243,116 @@ public class ShoppingCartTest {
         Assert.assertTrue(isDisplayed);
     }
 
+    @Test(priority = 31)
+    public void shouldDisplayPlusQtyButtonCart() {
+        boolean isDisplayed = cartScreen.plusQtyButtonIsDisplayed();
+        Assert.assertTrue(isDisplayed);
+    }
+    @Test(priority = 31)
+    public void shouldDisplayMinusQtyButtonCart() {
+        boolean isDisplayed = cartScreen.minusQtyButtonIsDisplayed();
+        Assert.assertTrue(isDisplayed);
+    }
+    @Test(priority = 32)
+    public void shouldDisplayQtyCart() {
+        boolean isDisplayed = cartScreen.quantityIsDisplayed();
+        Assert.assertTrue(isDisplayed);
+    }
+    @Test(priority = 33)
+    public void shouldDisplayRemoveButton() {
+        boolean isDisplayed = cartScreen.removeButtonIsDisplayed();
+        Assert.assertTrue(isDisplayed);
+    }
+    @Test(priority = 34)
+    public void shouldDisplaySaveButton() {
+        boolean isDisplayed = cartScreen.saveButtonIsDisplayed();
+        Assert.assertTrue(isDisplayed);
+    }
+    @Test(priority = 35)
+    public void shouldDisplayUpdateButton() {
+        boolean isDisplayed = cartScreen.updateButtonIsDisplayed();
+        Assert.assertTrue(isDisplayed);
+    }
+    @Test(priority = 36)
+    public void shouldDisplayContShoppingButton() {
+        boolean isDisplayed = cartScreen.contShoppingButtonIsDisplayed();
+        Assert.assertTrue(isDisplayed);
+    }
+    @Test(priority = 37)
+    public void shouldDisplayTotalPrice() {
+        boolean isDisplayed = cartScreen.totalPriceIsDisplayed();
+        Assert.assertTrue(isDisplayed);
+    }
+    @Test(priority = 38)
+    public void shouldDisplayCheckoutButton() {
+        boolean isDisplayed = cartScreen.checkoutButtonIsDisplayed();
+        Assert.assertTrue(isDisplayed);
+    }
+
+    @Test(priority = 39)
+    public void shouldAllowClickPlusBtn() {
+        boolean isClickable = cartScreen.plusBtnIsClickable();
+        Assert.assertTrue(isClickable);
+    }
+
+    @Test(priority = 40)
+    public void shouldAllowClickMinusBtn() {
+        boolean isClickable = cartScreen.minusBtnIsClickable();
+        Assert.assertTrue(isClickable);
+    }
+
+    @Test(priority = 41)
+    public void shouldAllowClickRemoveBtn() {
+        boolean isClickable = cartScreen.removeBtnIsClickable();
+        Assert.assertTrue(isClickable);
+    }
+
+    @Test(priority = 42)
+    public void shouldAllowClickSaveBtn() {
+        boolean isClickable = cartScreen.saveBtnIsClickable();
+        Assert.assertTrue(isClickable);
+    }
+
+    @Test(priority = 43)
+    public void shouldAllowClickUpdateBtn() {
+        boolean isClickable = cartScreen.updateBtnIsClickable();
+        Assert.assertTrue(isClickable);
+    }
+
+    @Test(priority = 44)
+    public void shouldAllowClickContShoppingBtn() {
+        boolean isClickable = cartScreen.contShoppingBtnIsClickable();
+        Assert.assertTrue(isClickable);
+    }
+
+    @Test(priority = 45)
+    public void shouldAllowClickCheckoutBtn() {
+        boolean isClickable = cartScreen.checkoutBtnIsClickable();
+        Assert.assertTrue(isClickable);
+    }
+
+    @Test(priority = 46)
+    public void shouldIncreaseQty() {
+        cartScreen.clickPlusQtyBtn();
+
+        String expectedQty = "2";
+        boolean isIncreased = cartScreen.verifyQuantity(expectedQty);
+        Assert.assertTrue(isIncreased);
+    }
+
+    @Test(priority = 47)
+    public void shouldDecreaseQty() {
+        cartScreen.clickMinusQtyBtn();
+
+        String expectedQty = "1";
+        boolean isDecreased = cartScreen.verifyQuantity(expectedQty);
+        Assert.assertTrue(isDecreased);
+    }
+
+    @Test(priority = 48)
+    public void shouldRemoveItemCart() {
+        cartScreen.clickRemoveBtn();
+        boolean isMessageDisplayed = cartScreen.emptyCartIsDisplayed();
+        Assert.assertTrue(isMessageDisplayed);
+    }
 }
