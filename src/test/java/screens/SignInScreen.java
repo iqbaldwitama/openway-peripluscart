@@ -47,7 +47,9 @@ public class SignInScreen {
     }
 
     public boolean isClickable(WebElement element) {
-        return wait.until(ExpectedConditions.elementToBeClickable(element)).isDisplayed();
+        boolean isDisplayed = wait.until(ExpectedConditions.elementToBeClickable(element)).isDisplayed();
+        boolean isEnabled = wait.until(ExpectedConditions.elementToBeClickable(element)).isEnabled();
+        return isDisplayed && isEnabled;
     }
     public boolean loginButtonIsClickable() {
         return isClickable(loginButton);

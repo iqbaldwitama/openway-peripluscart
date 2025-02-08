@@ -4,7 +4,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import screens.BookScreen;
 import screens.NavBar;
+import screens.SearchResultsScreen;
 import screens.SignInScreen;
 
 import java.time.Duration;
@@ -14,9 +16,12 @@ public class ShoppingCartTest {
     WebDriverWait wait;
     NavBar navBar;
     SignInScreen signInScreen;
+    SearchResultsScreen searchResultsScreen;
+    BookScreen bookScreen;
     String url;
     String email;
     String password;
+    String bookTitle;
 
     @BeforeTest
     public void TestSetup() {
@@ -26,10 +31,13 @@ public class ShoppingCartTest {
         this.url = "https://www.periplus.com";
         this.email = "iqbaldwitama18@gmail.com";
         this.password = "openwayTesting1";
+        this.bookTitle = "The Silent Patient";
 
         driver.get(url);
         navBar = new NavBar(driver);
         signInScreen = new SignInScreen(driver);
+        searchResultsScreen = new SearchResultsScreen(driver, bookTitle);
+        bookScreen = new BookScreen(driver, bookTitle);
     }
 
     @Test(priority = 1)
@@ -100,7 +108,105 @@ public class ShoppingCartTest {
     }
 
     @Test(priority = 11)
-    public void shouldDisplay() {
+    public void shouldNavigateToYourAccountPage() {
         signInScreen.clickLoginButton();
+
+        String currentUrl = driver.getCurrentUrl();
+        String expectedUrl = "https://www.periplus.com/account/Your-Account";
+        Assert.assertEquals(currentUrl, expectedUrl, "ERROR: Page did not redirect to the expected URL.");
     }
+
+    @Test(priority = 12)
+    public void shouldDisplaySearchBar() {
+        boolean isDisplayed = navBar.searchBarIsDisplayed();
+        Assert.assertTrue(isDisplayed, "ERROR: Search bar is NOT displayed in the navigation bar.");
+    }
+
+    @Test(priority = 13)
+    public void shouldEnterBookTitle() {
+        navBar.enterSearchBarInput(bookTitle);
+
+        boolean isVerified = navBar.verifySearchInputValue(bookTitle);
+        Assert.assertTrue(isVerified);
+    }
+
+    @Test(priority = 14)
+    public void shouldSearchBook() {
+        navBar.clickSearch();
+
+        String currentURL = driver.getCurrentUrl();
+        String expectedFilterURL = "filter_name=" + bookTitle.replaceAll("\\s","+");
+        Assert.assertTrue(currentURL.contains(expectedFilterURL), "ERROR: Search term is not found in the URL.");
+    }
+
+    @Test(priority = 15)
+    public void shouldDisplayDesiredBook() {
+        boolean isDisplayed = searchResultsScreen.bookIsDisplayed();
+        Assert.assertTrue(isDisplayed, "ERROR: Book is NOT available");
+    }
+
+    @Test(priority = 16)
+    public void shouldAllowClickDesiredBook() {
+        boolean isClickable = searchResultsScreen.bookIsClickable();
+        Assert.assertTrue(isClickable, "ERROR: Book is NOT clickable");
+    }
+
+    @Test(priority = 17)
+    public void shouldNavigateToBookPage() {
+        searchResultsScreen.clickBook();
+
+        String currentURL = driver.getCurrentUrl();
+        String expectedFilterURL = bookTitle.toLowerCase().replaceAll("\\s","-");
+        Assert.assertTrue(currentURL.contains(expectedFilterURL), "ERROR: Incorrect book page redirection.");
+    }
+
+    @Test(priority = 18)
+    public void shouldDisplayBookTitle() {
+        boolean isDisplayed = bookScreen.bookTitleIsDisplayed();
+        Assert.assertTrue(isDisplayed);
+    }
+    @Test(priority = 19)
+    public void shouldDisplayPlusQtyButton() {
+        boolean isDisplayed = bookScreen.plusQtyButtonIsDisplayed();
+        Assert.assertTrue(isDisplayed);
+    }
+    @Test(priority = 20)
+    public void shouldDisplayMinusQtyButton() {
+        boolean isDisplayed = bookScreen.bookTitleIsDisplayed();
+        Assert.assertTrue(isDisplayed);
+    }
+    @Test(priority = 21)
+    public void shouldDisplayQtyNumber() {
+        boolean isDisplayed = bookScreen.qtyNumberIsDisplayed();
+        Assert.assertTrue(isDisplayed);
+    }
+    @Test(priority = 22)
+    public void shouldDisplayAddToCartButton() {
+        boolean isDisplayed = bookScreen.addToCartButtonIsDisplayed();
+        Assert.assertTrue(isDisplayed);
+    }
+    @Test(priority = 23)
+    public void shouldAllowClickPlusQtyBtn() {
+        boolean isClickable = bookScreen.plusButtonIsClickable();
+        Assert.assertTrue(isClickable);
+    }
+    @Test(priority = 24)
+    public void shouldAllowClickMinusQtyBtn() {
+        boolean isClickable = bookScreen.minusButtonIsClickable();
+        Assert.assertTrue(isClickable);
+    }
+    @Test(priority = 25)
+    public void shouldAllowClickAddToCartBtn() {
+        boolean isClickable = bookScreen.addToCartButtonIsClickable();
+        Assert.assertTrue(isClickable);
+    }
+    @Test(priority = 26)
+    public void shouldDisplayModal() {
+        bookScreen.clickAddToCart();
+
+        boolean isDisplayed = bookScreen.notificationModalIsDisplayed();
+        Assert.assertTrue(isDisplayed);
+        bookScreen.clickCloseModal();
+    }
+
 }

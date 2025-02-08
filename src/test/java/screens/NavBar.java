@@ -1,5 +1,6 @@
 package screens;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -43,10 +44,9 @@ public class NavBar {
     }
 
     public boolean isClickable(WebElement element) {
-        return wait.until(ExpectedConditions.elementToBeClickable(element)).isDisplayed();
-    }
-    public boolean searchBarIsClickable() {
-        return isClickable(searchBar);
+        boolean isDisplayed = wait.until(ExpectedConditions.elementToBeClickable(element)).isDisplayed();
+        boolean isEnabled = wait.until(ExpectedConditions.elementToBeClickable(element)).isEnabled();
+        return isDisplayed && isEnabled;
     }
     public boolean cartButtonIsClickable() {
         return isClickable(cartButton);
@@ -58,5 +58,17 @@ public class NavBar {
     public void clickSignIn() {
         wait.until(ExpectedConditions.invisibilityOf(preloader));
         wait.until(ExpectedConditions.elementToBeClickable(signInButton)).click();
+    }
+
+    public void enterSearchBarInput(String input) {
+        wait.until(ExpectedConditions.elementToBeClickable(searchBar)).sendKeys(input);
+    }
+
+    public boolean verifySearchInputValue(String expectedValue) {
+        return wait.until(ExpectedConditions.attributeToBe(searchBar, "value", expectedValue));
+    }
+
+    public void clickSearch() {
+        searchBar.sendKeys(Keys.ENTER);
     }
 }
