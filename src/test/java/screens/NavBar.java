@@ -57,7 +57,11 @@ public class NavBar {
 
     public void clickSignIn() {
         wait.until(ExpectedConditions.invisibilityOf(preloader));
-        wait.until(ExpectedConditions.elementToBeClickable(signInButton)).click();
+        signInButton.click();
+    }
+    public void clickCartButton() {
+        wait.until(ExpectedConditions.invisibilityOf(preloader));
+        cartButton.click();
     }
 
     public void enterSearchBarInput(String input) {

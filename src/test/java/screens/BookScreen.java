@@ -14,11 +14,13 @@ public class BookScreen {
     WebDriver driver;
     WebDriverWait wait;
     String bookTitle;
+    String bookXPath;
 
     public BookScreen(WebDriver driver, String bookTitle) {
         this.driver = driver;
         this.wait = new WebDriverWait(this.driver, Duration.ofMillis(10000));
         this.bookTitle = bookTitle;
+        this.bookXPath = "//h2[contains(normalize-space(text()), '%s')]";
         PageFactory.initElements(driver, this);
     }
 
@@ -34,7 +36,6 @@ public class BookScreen {
     WebElement notificationModal;
     @FindBy(xpath = "//button[contains(@class, 'btn-modal-close')]")
     WebElement closeModalButton;
-
     @FindBy(className = "preloader")
     WebElement preloader;
 
@@ -42,7 +43,7 @@ public class BookScreen {
         return wait.until(ExpectedConditions.visibilityOf(element)).isDisplayed();
     }
     public boolean bookTitleIsDisplayed() {
-        String xPath = String.format("//h2[contains(text(), '%s')]", bookTitle);
+        String xPath = String.format(bookXPath, bookTitle);
         return isDisplayed(driver.findElement(By.xpath(xPath)));
     }
     public boolean plusQtyButtonIsDisplayed() {

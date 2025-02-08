@@ -20,7 +20,7 @@ public class SearchResultsScreen {
         this.driver = driver;
         this.wait = new WebDriverWait(this.driver, Duration.ofMillis(10000));
         this.bookTitle = bookTitle;
-        this.bookXPath = String.format("//h3/a[contains(normalize-space(text()), '%s')]", bookTitle);
+        this.bookXPath = "//h3/a[contains(normalize-space(text()), '%s')]";
         PageFactory.initElements(driver, this);
     }
 
@@ -28,19 +28,22 @@ public class SearchResultsScreen {
     WebElement preloader;
 
     public boolean bookIsDisplayed() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(bookXPath))).isDisplayed();
+        String xpath = String.format(bookXPath, bookTitle);
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath))).isDisplayed();
     }
 
     public boolean bookIsClickable() {
-        boolean isDisplayed = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(bookXPath))).isDisplayed();
-        boolean isEnabled = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(bookXPath))).isEnabled();
+        String xpath = String.format(bookXPath, bookTitle);
+        boolean isDisplayed = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).isDisplayed();
+        boolean isEnabled = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).isEnabled();
         return isDisplayed && isEnabled;
     }
 
     public void clickBook() {
-        wait.until(ExpectedConditions.invisibilityOf(preloader));
+        String xpath = String.format(bookXPath, bookTitle);
 
-        WebElement book = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(bookXPath)));
+        wait.until(ExpectedConditions.invisibilityOf(preloader));
+        WebElement book = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
         book.click();
     }
 
