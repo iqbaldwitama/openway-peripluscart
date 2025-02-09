@@ -1,4 +1,4 @@
-package screens;
+package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,13 +10,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class SearchResultsScreen {
+public class SearchResultsPage {
     WebDriver driver;
     WebDriverWait wait;
     String bookTitle;
     String bookXPath;
 
-    public SearchResultsScreen(WebDriver driver, String bookTitle) {
+    public SearchResultsPage(WebDriver driver, String bookTitle) {
         this.driver = driver;
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
         this.bookTitle = bookTitle;

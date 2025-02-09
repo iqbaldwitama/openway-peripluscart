@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import screens.*;
+import pages.*;
 
 import java.time.Duration;
 
@@ -13,10 +13,10 @@ public class ShoppingCartTest {
     WebDriver driver;
     WebDriverWait wait;
     NavBar navBar;
-    SignInScreen signInScreen;
-    SearchResultsScreen searchResultsScreen;
-    BookScreen bookScreen;
-    CartScreen cartScreen;
+    SignInPage signInPage;
+    SearchResultsPage searchResultsPage;
+    BookPage bookPage;
+    CartPage cartPage;
     String url;
     String email;
     String password;
@@ -34,10 +34,10 @@ public class ShoppingCartTest {
 
         driver.get(url);
         navBar = new NavBar(driver);
-        signInScreen = new SignInScreen(driver);
-        searchResultsScreen = new SearchResultsScreen(driver, bookTitle);
-        bookScreen = new BookScreen(driver, bookTitle);
-        cartScreen = new CartScreen(driver, bookTitle);
+        signInPage = new SignInPage(driver);
+        searchResultsPage = new SearchResultsPage(driver, bookTitle);
+        bookPage = new BookPage(driver, bookTitle);
+        cartPage = new CartPage(driver, bookTitle);
     }
 
     @Test(priority = 1)
@@ -57,59 +57,59 @@ public class ShoppingCartTest {
         navBar.clickSignIn();
 
         String currentUrl = driver.getCurrentUrl();
-        String expectedUrl = signInScreen.url;
+        String expectedUrl = signInPage.url;
         Assert.assertEquals(currentUrl, expectedUrl);
     }
 
     @Test(priority = 4)
     public void shouldDisplaySignInTitle() {
-        boolean isDisplayed = signInScreen.signInTitleIsDisplayed();
+        boolean isDisplayed = signInPage.signInTitleIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
 
     @Test(priority = 5)
     public void shouldDisplayEmailInput() {
-        boolean isDisplayed = signInScreen.emailInputIsDisplayed();
+        boolean isDisplayed = signInPage.emailInputIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
 
     @Test(priority = 6)
     public void shouldDisplayPasswordInput() {
-        boolean isDisplayed = signInScreen.passwordInputIsDisplayed();
+        boolean isDisplayed = signInPage.passwordInputIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
 
     @Test(priority = 7)
     public void shouldDisplayLoginButton() {
-        boolean isDisplayed = signInScreen.loginButtonIsDisplayed();
+        boolean isDisplayed = signInPage.loginButtonIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
 
     @Test(priority = 8)
     public void shouldEnterEmail() {
-        signInScreen.enterEmail(email);
+        signInPage.enterEmail(email);
 
-        boolean isVerified = signInScreen.verifyEmailInput(email);
+        boolean isVerified = signInPage.verifyEmailInput(email);
         Assert.assertTrue(isVerified);
     }
 
     @Test(priority = 9)
     public void shouldEnterPassword() {
-        signInScreen.enterPassword(password);
+        signInPage.enterPassword(password);
 
-        boolean isVerified = signInScreen.verifyPasswordInput(password);
+        boolean isVerified = signInPage.verifyPasswordInput(password);
         Assert.assertTrue(isVerified);
     }
 
     @Test(priority = 10)
     public void shouldAllowClickLoginButton() {
-        boolean isClickable = signInScreen.loginButtonIsClickable();
+        boolean isClickable = signInPage.loginButtonIsClickable();
         Assert.assertTrue(isClickable);
     }
 
     @Test(priority = 11)
     public void shouldNavigateToYourAccountPage() {
-        signInScreen.clickLoginButton();
+        signInPage.clickLoginButton();
 
         String currentUrl = driver.getCurrentUrl();
         String expectedUrl = "https://www.periplus.com/account/Your-Account";
@@ -141,19 +141,19 @@ public class ShoppingCartTest {
 
     @Test(priority = 15)
     public void shouldDisplayDesiredBook() {
-        boolean isDisplayed = searchResultsScreen.bookIsDisplayed();
+        boolean isDisplayed = searchResultsPage.bookIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
 
     @Test(priority = 16)
     public void shouldAllowClickDesiredBook() {
-        boolean isClickable = searchResultsScreen.bookIsClickable();
+        boolean isClickable = searchResultsPage.bookIsClickable();
         Assert.assertTrue(isClickable);
     }
 
     @Test(priority = 17)
     public void shouldNavigateToBookPage() {
-        searchResultsScreen.clickBook();
+        searchResultsPage.clickBook();
 
         String currentUrl = driver.getCurrentUrl();
         String expectedFilterUrl = bookTitle.toLowerCase().replaceAll("\\s","-");
@@ -162,59 +162,59 @@ public class ShoppingCartTest {
 
     @Test(priority = 18)
     public void shouldDisplayBookTitle() {
-        boolean isDisplayed = bookScreen.bookTitleIsDisplayed();
+        boolean isDisplayed = bookPage.bookTitleIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
 
     @Test(priority = 19)
     public void shouldDisplayPlusQtyButton() {
-        boolean isDisplayed = bookScreen.plusQtyButtonIsDisplayed();
+        boolean isDisplayed = bookPage.plusQtyButtonIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
 
     @Test(priority = 20)
     public void shouldDisplayMinusQtyButton() {
-        boolean isDisplayed = bookScreen.bookTitleIsDisplayed();
+        boolean isDisplayed = bookPage.bookTitleIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
 
     @Test(priority = 21)
     public void shouldDisplayQtyNumber() {
-        boolean isDisplayed = bookScreen.qtyNumberIsDisplayed();
+        boolean isDisplayed = bookPage.qtyNumberIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
 
     @Test(priority = 22)
     public void shouldDisplayAddToCartButton() {
-        boolean isDisplayed = bookScreen.addToCartButtonIsDisplayed();
+        boolean isDisplayed = bookPage.addToCartButtonIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
 
     @Test(priority = 23)
     public void shouldAllowClickPlusQtyBtn() {
-        boolean isClickable = bookScreen.plusButtonIsClickable();
+        boolean isClickable = bookPage.plusButtonIsClickable();
         Assert.assertTrue(isClickable);
     }
 
     @Test(priority = 24)
     public void shouldAllowClickMinusQtyBtn() {
-        boolean isClickable = bookScreen.minusButtonIsClickable();
+        boolean isClickable = bookPage.minusButtonIsClickable();
         Assert.assertTrue(isClickable);
     }
 
     @Test(priority = 25)
     public void shouldAllowClickAddToCartBtn() {
-        boolean isClickable = bookScreen.addToCartButtonIsClickable();
+        boolean isClickable = bookPage.addToCartButtonIsClickable();
         Assert.assertTrue(isClickable);
     }
 
     @Test(priority = 26)
     public void shouldDisplayModal() {
-        bookScreen.clickAddToCart();
+        bookPage.clickAddToCart();
 
-        boolean isDisplayed = bookScreen.notificationModalIsDisplayed();
+        boolean isDisplayed = bookPage.notificationModalIsDisplayed();
         Assert.assertTrue(isDisplayed);
-        bookScreen.clickCloseModal();
+        bookPage.clickCloseModal();
     }
 
     @Test(priority = 27)
@@ -234,126 +234,126 @@ public class ShoppingCartTest {
         navBar.clickCartButton();
 
         String currentUrl = driver.getCurrentUrl();
-        String expectedUrl = cartScreen.url;
+        String expectedUrl = cartPage.url;
         Assert.assertEquals(currentUrl, expectedUrl);
     }
 
     @Test(priority = 30)
     public void shouldDisplayBookInCart() {
-        boolean isDisplayed = cartScreen.bookTitleIsDisplayed();
+        boolean isDisplayed = cartPage.bookTitleIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
 
     @Test(priority = 31)
     public void shouldDisplayPlusQtyButtonCart() {
-        boolean isDisplayed = cartScreen.plusQtyButtonIsDisplayed();
+        boolean isDisplayed = cartPage.plusQtyButtonIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
     @Test(priority = 31)
     public void shouldDisplayMinusQtyButtonCart() {
-        boolean isDisplayed = cartScreen.minusQtyButtonIsDisplayed();
+        boolean isDisplayed = cartPage.minusQtyButtonIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
     @Test(priority = 32)
     public void shouldDisplayQtyCart() {
-        boolean isDisplayed = cartScreen.quantityIsDisplayed();
+        boolean isDisplayed = cartPage.quantityIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
     @Test(priority = 33)
     public void shouldDisplayRemoveButton() {
-        boolean isDisplayed = cartScreen.removeButtonIsDisplayed();
+        boolean isDisplayed = cartPage.removeButtonIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
     @Test(priority = 34)
     public void shouldDisplaySaveButton() {
-        boolean isDisplayed = cartScreen.saveButtonIsDisplayed();
+        boolean isDisplayed = cartPage.saveButtonIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
     @Test(priority = 35)
     public void shouldDisplayUpdateButton() {
-        boolean isDisplayed = cartScreen.updateButtonIsDisplayed();
+        boolean isDisplayed = cartPage.updateButtonIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
     @Test(priority = 36)
     public void shouldDisplayContShoppingButton() {
-        boolean isDisplayed = cartScreen.contShoppingButtonIsDisplayed();
+        boolean isDisplayed = cartPage.contShoppingButtonIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
     @Test(priority = 37)
     public void shouldDisplayTotalPrice() {
-        boolean isDisplayed = cartScreen.totalPriceIsDisplayed();
+        boolean isDisplayed = cartPage.totalPriceIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
     @Test(priority = 38)
     public void shouldDisplayCheckoutButton() {
-        boolean isDisplayed = cartScreen.checkoutButtonIsDisplayed();
+        boolean isDisplayed = cartPage.checkoutButtonIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }
 
     @Test(priority = 39)
     public void shouldAllowClickPlusBtn() {
-        boolean isClickable = cartScreen.plusBtnIsClickable();
+        boolean isClickable = cartPage.plusBtnIsClickable();
         Assert.assertTrue(isClickable);
     }
 
     @Test(priority = 40)
     public void shouldAllowClickMinusBtn() {
-        boolean isClickable = cartScreen.minusBtnIsClickable();
+        boolean isClickable = cartPage.minusBtnIsClickable();
         Assert.assertTrue(isClickable);
     }
 
     @Test(priority = 41)
     public void shouldAllowClickRemoveBtn() {
-        boolean isClickable = cartScreen.removeBtnIsClickable();
+        boolean isClickable = cartPage.removeBtnIsClickable();
         Assert.assertTrue(isClickable);
     }
 
     @Test(priority = 42)
     public void shouldAllowClickSaveBtn() {
-        boolean isClickable = cartScreen.saveBtnIsClickable();
+        boolean isClickable = cartPage.saveBtnIsClickable();
         Assert.assertTrue(isClickable);
     }
 
     @Test(priority = 43)
     public void shouldAllowClickUpdateBtn() {
-        boolean isClickable = cartScreen.updateBtnIsClickable();
+        boolean isClickable = cartPage.updateBtnIsClickable();
         Assert.assertTrue(isClickable);
     }
 
     @Test(priority = 44)
     public void shouldAllowClickContShoppingBtn() {
-        boolean isClickable = cartScreen.contShoppingBtnIsClickable();
+        boolean isClickable = cartPage.contShoppingBtnIsClickable();
         Assert.assertTrue(isClickable);
     }
 
     @Test(priority = 45)
     public void shouldAllowClickCheckoutBtn() {
-        boolean isClickable = cartScreen.checkoutBtnIsClickable();
+        boolean isClickable = cartPage.checkoutBtnIsClickable();
         Assert.assertTrue(isClickable);
     }
 
     @Test(priority = 46)
     public void shouldIncreaseQty() {
-        cartScreen.clickPlusQtyBtn();
+        cartPage.clickPlusQtyBtn();
 
         String expectedQty = "2";
-        boolean isIncreased = cartScreen.verifyQuantity(expectedQty);
+        boolean isIncreased = cartPage.verifyQuantity(expectedQty);
         Assert.assertTrue(isIncreased);
     }
 
     @Test(priority = 47)
     public void shouldDecreaseQty() {
-        cartScreen.clickMinusQtyBtn();
+        cartPage.clickMinusQtyBtn();
 
         String expectedQty = "1";
-        boolean isDecreased = cartScreen.verifyQuantity(expectedQty);
+        boolean isDecreased = cartPage.verifyQuantity(expectedQty);
         Assert.assertTrue(isDecreased);
     }
 
     @Test(priority = 48)
     public void shouldRemoveItemCart() {
-        cartScreen.clickRemoveBtn();
-        boolean isMessageDisplayed = cartScreen.emptyCartIsDisplayed();
+        cartPage.clickRemoveBtn();
+        boolean isMessageDisplayed = cartPage.emptyCartIsDisplayed();
         Assert.assertTrue(isMessageDisplayed);
     }
 

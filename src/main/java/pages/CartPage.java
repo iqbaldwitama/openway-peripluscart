@@ -1,4 +1,4 @@
-package screens;
+package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,14 +10,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class CartScreen {
+public class CartPage {
     WebDriver driver;
     WebDriverWait wait;
     public String url;
     String bookTitle;
     String bookXPath;
 
-    public CartScreen(WebDriver driver, String bookTitle) {
+    public CartPage(WebDriver driver, String bookTitle) {
         this.driver = driver;
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
         this.url = "https://www.periplus.com/checkout/cart";
