@@ -220,7 +220,7 @@ public class ShoppingCartTest {
     }
 
     @Test(priority = 27)
-    public void shouldDsiplayClickCartButton() {
+    public void shouldDisplayClickCartButton() {
         boolean isDisplayed = navBar.cartButtonIsDisplayed();
         Assert.assertTrue(isDisplayed);
     }

@@ -27,11 +27,11 @@ public class CartPage {
     }
 
     // Shopping cart screen elements
-    @FindBy(xpath = "//button[contains(@name, 'plus[53553084]')]")
+    @FindBy(xpath = "//button[contains(@name, 'plus[57561428]')]")
     WebElement plusQtyButton;
-    @FindBy(xpath = "//button[contains(@name, 'minus[53553084]')]")
+    @FindBy(xpath = "//button[contains(@name, 'minus[57561428]')]")
     WebElement minusQtyButton;
-    @FindBy(xpath = "//input[contains(@name, 'quantity[53553084]')]")
+    @FindBy(xpath = "//input[contains(@name, 'quantity[57561428]')]")
     WebElement quantity;
     @FindBy(xpath = "//a[contains(text(), 'Remove')]")
     WebElement removeButton;

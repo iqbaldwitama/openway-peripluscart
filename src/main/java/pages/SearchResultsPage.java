@@ -20,7 +20,7 @@ public class SearchResultsPage {
         this.driver = driver;
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
         this.bookTitle = bookTitle;
-        this.bookXPath = "//h3/a[contains(normalize-space(text()), '%s')]";
+        this.bookXPath = "//h3[a[contains(normalize-space(text()), '%s')]]";
         PageFactory.initElements(driver, this);
     }
 
@@ -30,6 +30,7 @@ public class SearchResultsPage {
     // Check if UI element is visible on the page
     public boolean bookIsDisplayed() {
         String xpath = String.format(bookXPath, bookTitle);
+        System.out.println(xpath);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath))).isDisplayed();
     }
 
