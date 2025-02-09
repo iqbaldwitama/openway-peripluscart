@@ -4,6 +4,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pages.*;
 
@@ -22,15 +23,16 @@ public class ShoppingCartTest {
     String password;
     String bookTitle;
 
+    @Parameters({"url", "email", "password", "bookTitle"})
     @BeforeTest
-    public void TestSetup() {
+    public void TestSetup(String url, String email, String password, String bookTitle) {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
-        this.url = "https://www.periplus.com";
-        this.email = "iqbaldwitama18@gmail.com";
-        this.password = "openwayTesting1";
-        this.bookTitle = "The Silent Patient";
+        this.url = url;
+        this.email = email;
+        this.password = password;
+        this.bookTitle = bookTitle;
 
         driver.get(url);
         navBar = new NavBar(driver);

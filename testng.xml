@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Selenium Shopping Cart Test Suite">
+    <test name="Shopping Cart Tests">
+        <parameter name="url" value="https://www.periplus.com"/>
+        <parameter name="email" value="iqbaldwitama18@gmail.com"/>
+        <parameter name="password" value="openwayTesting1"/>
+        <parameter name="bookTitle" value="The Silent Patient"/>
+        <classes>
+            <class name="ShoppingCartTest"/>
+        </classes>
+    </test>
+</suite>
