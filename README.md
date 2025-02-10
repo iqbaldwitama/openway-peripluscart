@@ -1,0 +1,1 @@
+Run the `testng.xml` file to run the test. 
