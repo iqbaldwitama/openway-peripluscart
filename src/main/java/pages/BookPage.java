@@ -29,7 +29,7 @@ public class BookPage {
     WebElement plusButton;
     @FindBy(xpath = "//button[@name='minus']")
     WebElement minusButton;
-    @FindBy(id = "qty_57561428")
+    @FindBy(id = "qty_65254796")
     WebElement quantity;
     @FindBy(xpath = "//button[contains(@class, 'btn-add-to-cart') and text()='Add to Cart']")
     WebElement addToCartButton;

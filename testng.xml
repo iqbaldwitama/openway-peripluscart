@@ -5,7 +5,7 @@
         <parameter name="url" value="https://www.periplus.com"/>
         <parameter name="email" value="iqbaldwitama18@gmail.com"/>
         <parameter name="password" value="openwayTesting1"/>
-        <parameter name="bookTitle" value="The Silent Patient"/>
+        <parameter name="bookTitle" value="No Longer Human"/>
         <classes>
             <class name="ShoppingCartTest"/>
         </classes>
